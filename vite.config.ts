@@ -1,22 +1,25 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
-import path from "path";
-import { componentTagger } from "lovable-tagger";
+// vite.config.ts - فایل کامل و اصلاح‌شده برای جلوگیری از ارور Netlify
 
-// https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
-  server: {
-    host: "::",
-    port: 8080,
-  },
-  plugins: [
-    react(),
-    mode === 'development' &&
-    componentTagger(),
-  ].filter(Boolean),
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react-swc';
+import path from 'path';
+
+export default defineConfig({
+  plugins: [react()],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
-    },
+      '@': path.resolve(__dirname, './src')
+    }
   },
-}));
+  build: {
+    outDir: 'dist', // Netlify expects this folder
+    rollupOptions: {
+      external: [] // اگر پکیج خاصی مشکل داشت، اینجا مشخص کن
+    }
+  },
+  server: {
+    port: 5173, // پورت پیش‌فرض Vite
+    open: true
+  },
+  base: './' // این مورد برای Netlify حیاتی‌ست که مسیرها را نسبی کند
+});
