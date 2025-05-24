@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+// src/components/auth/SignUp.tsx
+import React, { useState } from 'react'
 
 const SignUp = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     if (password !== confirmPassword) {
-      alert('Passwords do not match');
-      return;
+      alert('Passwords do not match')
+      return
     }
-    alert(`Registered with: ${email}`);
-  };
+    alert(`Registered: ${email}`)
+  }
 
   return (
     <form onSubmit={handleSubmit} className="max-w-md mx-auto p-6 bg-white rounded-lg shadow">
@@ -45,7 +46,7 @@ const SignUp = () => {
         Sign Up
       </button>
     </form>
-  );
-};
+  )
+}
 
-export default SignUp;
+export default SignUp
